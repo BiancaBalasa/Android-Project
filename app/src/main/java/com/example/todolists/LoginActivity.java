@@ -13,31 +13,33 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText editText_username,editText_email;
-    Button btnLogin;
+    EditText username, password;
+    Button btnLogin, btnRegister;
     SharedPreferences sharedPreferences;
 
-    //create a name for shared preferences and key name
     private static final String SHARED_PREF_NAME = "mypref";
     private static final String KEY_USERNAME="username";
-    private static final String KEY_EMAIL="email";
+    private static final String KEY_PASSWORD="password";
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        editText_username = findViewById(R.id.editTextUsername);
-        editText_email=findViewById(R.id.editTextEmail);
+        username=findViewById(R.id.editTextUsername);
+        password=findViewById(R.id.editTextPassword);
         btnLogin=findViewById(R.id.buttonLogin);
+        btnRegister=findViewById(R.id.buttonRegister);
 
         sharedPreferences=getSharedPreferences(SHARED_PREF_NAME,MODE_PRIVATE);
 
-        String username =sharedPreferences.getString(KEY_USERNAME,null);
-        String email= sharedPreferences.getString(KEY_EMAIL,null);
+        String registeredUsername=sharedPreferences.getString(KEY_USERNAME,"");
+        String registeredPassword=sharedPreferences.getString(KEY_PASSWORD,"");
 
-        if (username != null && email != null) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        //if data is available we will go directly to mainActivity
+        if ((registeredUsername!="" && registeredPassword!="") || (registeredUsername!= null && registeredPassword!= null)){
+            System.out.println(registeredUsername);
+            System.out.println(registeredPassword);
+            Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
             startActivity(intent);
         }
 
@@ -45,22 +47,33 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(TextUtils.isEmpty(editText_username.getText().toString()) && TextUtils.isEmpty(editText_email.getText().toString())){
-                    Toast.makeText(LoginActivity.this, "Please Enter Username and Email", Toast.LENGTH_SHORT).show();
-                }else{
-                    //when we click the btnLogin, put data in Shared Preferences
-                    SharedPreferences.Editor editor=sharedPreferences.edit();
-                    editor.putString(KEY_USERNAME,editText_username.getText().toString());
-                    editor.putString(KEY_EMAIL,editText_email.getText().toString());
-                    editor.apply();
+                String usernameValue=username.getText().toString();
+                String passwordValue=password.getText().toString();
 
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                    startActivity(intent);
+                if(usernameValue.equals(registeredUsername) && passwordValue.equals(registeredPassword)){
+                    // asta trebuie aici (pe main activity o sa fie to do listul), dar ca sa testez am pus profileActivity
+                    // Intent navigateToMainActivity =new Intent(LoginActivity.this,MainActivity.class);
+
+                    Intent navigateToMainActivity =new Intent(LoginActivity.this,ProfileActivity.class);
+                    startActivity(navigateToMainActivity);
+                    Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
 
 
             }
         });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent navigateToRegisterActivity=new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(navigateToRegisterActivity);
+            }
+        });
+
+
+
     }
 }
 

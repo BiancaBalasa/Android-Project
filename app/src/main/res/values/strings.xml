@@ -2,7 +2,13 @@
     <string name="app_name">To Do Lists</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
+    <string name="password">Password</string>
     <string name="login">Log In</string>
+    <string name="register">Register</string>
+    <string name="logout">Log Out</string>
     <string name="placeholderUsername">Enter username</string>
     <string name="placeholderEmail">Enter email</string>
+    <string name="placeholderPassword">Enter password</string>
+    <string name="profile">Profile</string>
+
 </resources>
