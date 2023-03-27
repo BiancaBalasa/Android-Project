@@ -6,9 +6,11 @@
     <string name="login">Log In</string>
     <string name="register">Register</string>
     <string name="logout">Log Out</string>
+    <string name="google_login">or Log In with</string>
     <string name="placeholderUsername">Enter username</string>
     <string name="placeholderEmail">Enter email</string>
     <string name="placeholderPassword">Enter password</string>
     <string name="profile">Profile</string>
+    <string name="server_client_id">966236940536-vml2u0i3pr5m168nlct2dmplok2nsu6s.apps.googleusercontent.com</string>
 
 </resources>
