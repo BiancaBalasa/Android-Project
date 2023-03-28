@@ -73,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
                   finish();
                   Intent intent =new Intent(ProfileActivity.this,LoginActivity.class);
                   startActivity(intent);
+                  overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                   Toast.makeText(ProfileActivity.this, "Log out successfully!", Toast.LENGTH_SHORT).show();
 
                   //if i am logged in with google
@@ -90,5 +91,10 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

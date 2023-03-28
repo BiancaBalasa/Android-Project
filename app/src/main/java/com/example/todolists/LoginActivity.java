@@ -1,11 +1,14 @@
 package com.example.todolists;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,17 +23,13 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
-
     EditText username, password;
     Button btnLogin, btnRegister;
     SharedPreferences sharedPreferences;
 
     //google login
-
     GoogleSignInClient gsc;
     GoogleSignInOptions gso;
-
-
 
     ImageButton btnGoogle;
 
@@ -64,12 +63,14 @@ public class LoginActivity extends AppCompatActivity {
         if(account!=null){
             Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
         //if data is available we will go directly to mainActivity
         if (!registeredUsername.equals("") && !registeredPassword.equals("")){
             Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -78,13 +79,14 @@ public class LoginActivity extends AppCompatActivity {
                 String usernameValue=username.getText().toString();
                 String passwordValue=password.getText().toString();
 
-                if(usernameValue.equals(registeredUsername) && passwordValue.equals(registeredPassword)){
+                if(usernameValue.equals(registeredUsername) && passwordValue.equals(registeredPassword) && !TextUtils.isEmpty(usernameValue) && !TextUtils.isEmpty(passwordValue)){
 
                     // asta trebuie aici (pe main activity o sa fie to do listul), dar ca sa testez am pus profileActivity
                     // Intent navigateToMainActivity =new Intent(LoginActivity.this,MainActivity.class);
 
                     Intent navigateToMainActivity =new Intent(LoginActivity.this,ProfileActivity.class);
                     startActivity(navigateToMainActivity);
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                     finish();
                 }
@@ -97,6 +99,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent navigateToRegisterActivity=new Intent(LoginActivity.this,RegisterActivity.class);
                 startActivity(navigateToRegisterActivity);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             }
         });
 
@@ -127,7 +130,8 @@ public class LoginActivity extends AppCompatActivity {
                 finish();
                 Intent intent=new Intent(LoginActivity.this,ProfileActivity.class);
                 startActivity(intent);
-                // Create a new intent to start the next activity
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+
 
             } catch (ApiException e) {
                 // The ApiException status code indicates the detailed failure reason.
@@ -137,6 +141,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
 
 
