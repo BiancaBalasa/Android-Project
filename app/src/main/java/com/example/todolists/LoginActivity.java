@@ -59,6 +59,12 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
          gsc = GoogleSignIn.getClient(this, gso);
 
+        GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
+        if(account!=null){
+            Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
+            startActivity(intent);
+        }
+
         //if data is available we will go directly to mainActivity
         if (!registeredUsername.equals("") && !registeredPassword.equals("")){
             Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);

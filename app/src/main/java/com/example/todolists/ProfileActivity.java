@@ -45,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
         gsc= GoogleSignIn.getClient(this,gso);
 
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
-        if(!account.equals(null)){
+        if(account!=null){
             String googleUsername= account.getDisplayName();
             String googleEmail=account.getEmail();
             username.setText("Username - "+googleUsername);
@@ -66,8 +66,17 @@ public class ProfileActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if i am logged in with google
-                if(!account.equals(null)){
+
+                  SharedPreferences.Editor editor = sharedPreferences.edit();
+                  editor.clear();
+                  editor.apply();
+                  finish();
+                  Intent intent =new Intent(ProfileActivity.this,LoginActivity.class);
+                  startActivity(intent);
+                  Toast.makeText(ProfileActivity.this, "Log out successfully!", Toast.LENGTH_SHORT).show();
+
+                  //if i am logged in with google
+                  if(account!=null){
                     gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete( Task<Void> task) {
@@ -75,12 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
                             startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
                         }
                     });
-                }else{
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear();
-                editor.commit();
-                Toast.makeText(ProfileActivity.this, "Log out successfully!", Toast.LENGTH_SHORT).show();
-                finish();}
+               }
             }
         });
 
