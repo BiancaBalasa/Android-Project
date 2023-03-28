@@ -59,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
          gsc = GoogleSignIn.getClient(this, gso);
 
+         //if you didn't logout than go directly to profile activity
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null){
             Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
