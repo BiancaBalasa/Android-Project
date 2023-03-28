@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 .requestEmail()
                 .build();
          gsc = GoogleSignIn.getClient(this, gso);
-
+    //test
          //if you didn't logout than go directly to profile activity(google login)
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null){
