@@ -61,14 +61,14 @@ public class LoginActivity extends AppCompatActivity {
          //if you didn't logout than go directly to profile activity(google login)
         GoogleSignInAccount account=GoogleSignIn.getLastSignedInAccount(this);
         if(account!=null){
-            Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
+            Intent intent =new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
 
         //if data is available we will go directly to mainActivity
         if (!registeredUsername.equals("") && !registeredPassword.equals("")){
-            Intent intent =new Intent(LoginActivity.this,ProfileActivity.class);
+            Intent intent =new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                     // asta trebuie aici (pe main activity o sa fie to do listul), dar ca sa testez am pus profileActivity
                     // Intent navigateToMainActivity =new Intent(LoginActivity.this,MainActivity.class);
 
-                    Intent navigateToMainActivity =new Intent(LoginActivity.this,ProfileActivity.class);
+                    Intent navigateToMainActivity =new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(navigateToMainActivity);
                     overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     Toast.makeText(LoginActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
@@ -128,7 +128,7 @@ public class LoginActivity extends AppCompatActivity {
                 // Signed in successfully, show authenticated UI.
                 task.getResult(ApiException.class);
                 finish();
-                Intent intent=new Intent(LoginActivity.this,ProfileActivity.class);
+                Intent intent=new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 

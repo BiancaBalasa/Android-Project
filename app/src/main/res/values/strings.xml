@@ -12,5 +12,7 @@
     <string name="placeholderPassword">Enter password</string>
     <string name="profile">Profile</string>
     <string name="server_client_id">966236940536-vml2u0i3pr5m168nlct2dmplok2nsu6s.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

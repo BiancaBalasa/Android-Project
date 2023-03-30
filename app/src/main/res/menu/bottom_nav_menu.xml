@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/toDoListsFragment2"
+        android:icon="@drawable/checklists"
+        android:title="Ckeclists" />
+    <item
+        android:id="@+id/profileFragment2"
+        android:icon="@drawable/profile"
+        android:title="@string/profile" />
+</menu>
