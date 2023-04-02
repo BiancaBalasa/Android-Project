@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -37,14 +38,26 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoIt
         ToDoItem toDoItem = todoList.get(position);
         holder.titleTextView.setText(toDoItem.getTitle());
         holder.checkBox.setChecked(toDoItem.isChecked());
-
+        SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("mypref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                todoList.remove(toDoItem);
+                notifyDataSetChanged();
+                //update the to do list from the shared preferences after I removed an item
+                Set<String> toDoSet = sharedPreferences.getStringSet("todo_list", new HashSet<>());
+                toDoSet.remove(toDoItem.getTitle());
+                editor.putStringSet("todo_list", toDoSet);
+                editor.apply();
+            }
+        });
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 toDoItem.setChecked(isChecked);
+
                 // Save the updated to-do item to shared preferences
-                SharedPreferences sharedPreferences = holder.itemView.getContext().getSharedPreferences("mypref", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(toDoItem.getTitle(), isChecked);
                 editor.apply();
             }
@@ -65,10 +78,15 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoIt
         public CheckBox checkBox;
         public TextView titleTextView;
 
+        public Button deleteButton;
+
+
         public ToDoItemViewHolder(View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.todo_item_checkbox);
             titleTextView = itemView.findViewById(R.id.todo_item_title);
+            deleteButton = itemView.findViewById(R.id.delete_button);
+
 
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
@@ -81,6 +99,9 @@ public class ToDoListAdapter extends RecyclerView.Adapter<ToDoListAdapter.ToDoIt
                     }
                 }
             });
+
+
         }
+
     }
 }
